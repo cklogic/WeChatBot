@@ -27,13 +27,13 @@ public class WeiXin {
 		InputStream is = GetHttp.getIOStream("http://login.weixin.qq.com/qrcode/"+uuid); 
 		int bytesRead = 0;
 		byte[] buffer = new byte[8192];
-		OutputStream os = new FileOutputStream(new File("temp/"+uuid+".png"));
+		OutputStream os = new FileOutputStream(new File("D:/temp/"+uuid+".png"));
 		while ((bytesRead = is.read(buffer, 0, 8192)) != -1) {
 			os.write(buffer, 0, bytesRead);
 		}
 		os.close();
 		is.close();
-		return "temp/"+uuid+".png";
+		return "D:/temp/"+uuid+".png";
 	}
 	public String getTicket(String uuid) throws Exception{
 		Date date = new Date();
@@ -105,7 +105,7 @@ public class WeiXin {
 		String parm="{\"BaseRequest\":{\"Uin\":\""+wxuin+"\",\"Sid\":\""+wxsid+"\",\"Skey\":\""+skey+"\",\"DeviceID\":\""+deviceID+"\"}}";
 		String url="https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxinit?r="+date.getTime()+"&lang=zh_CN&pass_ticket="+pass_ticket+"";
 		String text=GetHttp.postText(url, parm);
-		System.out.println(text);
+		//System.out.println(text);
 		String synckeyStr=find(text,"SyncKey\": ",",\"User");
 		String uuserName=find(text,""+wxuin+",\"UserName\": \"","\",\"");
 		String uname_synckey[]=new String[2];
